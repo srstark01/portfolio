@@ -3,18 +3,28 @@ body {
   padding: 0;
   font-family: "Helvetica Heue", Helvetica, Arial, sans-serif;
   color: #444;
+<<<<<<< HEAD
   text-indent: 10px;
+=======
+>>>>>>> f3f646056cd2163ceeacee448be7f9d69cb33838
   }
 /*
  * Formatting the header area
  */
 header {
+<<<<<<< HEAD
   background-color: #3342FF;
+=======
+  background-color: #DFB887;
+>>>>>>> f3f646056cd2163ceeacee448be7f9d69cb33838
   height: 35px;
   width: 100%;
   opacity: .9;
   margin-bottom: 10px;
+<<<<<<< HEAD
   text-indent: 10px;
+=======
+>>>>>>> f3f646056cd2163ceeacee448be7f9d69cb33838
   }
 header h1.logo {
   margin: 0;
@@ -70,11 +80,18 @@ h3 {
   display: inline;
   }
 .menu li + li {
+<<<<<<< HEAD
   margin-left: 10px;
   margin-right: 10px;
   }
 .menu li a {
   color: #FFFFFF;
+=======
+  margin-left: 35px;
+  }
+.menu li a {
+  color: #444;
+>>>>>>> f3f646056cd2163ceeacee448be7f9d69cb33838
   text-decoration: none;
   }
 html {
