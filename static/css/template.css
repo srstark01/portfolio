@@ -1,0 +1,51 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Helvetica Heue", Helvetica, Arial, sans-serif;
+  color: #444;
+  text-indent: 10px;
+  background: #EDEBED url(images/background.jpg) no-repeat center center fixed;
+  background-color: black;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  }
+/*
+ * Formatting the header area
+ */
+/*
+header {
+  background-color: #3342FF;
+  height: 35px;
+  width: 100%;
+  opacity: .9;
+  margin-bottom: 10px;
+  text-indent: 10px;
+  }
+header h1.logo {
+  margin: 0;
+  font-size: 1.7em;
+  color: #fff;
+  text-transform: uppercase;
+  float: left;
+  }
+header h1.loge:hover {
+  color: #FFFFFF;
+  text-decoration: none;
+  }
+/*
+ * Centering the body content
+ */
+/*
+html {
+  visibility: visible;
+  opacity: 1;
+  background: #EDEBED url(images/background.jpg) no-repeat center center fixed;
+  background-color: black;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  }
+*/

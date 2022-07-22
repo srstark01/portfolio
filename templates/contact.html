@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<style>
+form {
+  /* Center the form on the page */
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+form li + li {
+  margin-top: 1em;
+}
+
+label {
+  /* Uniform size & alignment */
+  display: inline-block;
+  width: 90px;
+  color: #FFFFFF;
+  text-align: left;
+}
+
+input,
+textarea {
+  /* To make sure that all text fields have the same font settings
+     By default, textareas have a monospace font */
+  font: 1em sans-serif;
+  background-color: #5e5d5d;
+  color: #ffffff;
+
+  /* Uniform text field size */
+  width: 300px;
+  box-sizing: border-box;
+
+  /* Match form field borders */
+  border: 1px solid #999;
+}
+
+input:focus,
+textarea:focus {
+  /* Additional highlight for focused elements */
+  border-color: #000;
+}
+
+textarea {
+  /* Align multiline text fields with their labels */
+  vertical-align: top;
+
+  /* Provide space to type some text */
+  height: 10em;
+}
+
+.button {
+  margin-top: 1em;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #5e5d5d;
+  color: #ffffff;
+  width: 200px;
+}
+
+.alert {
+  padding: 5px;
+  margin: 5px;
+  color: #000000;
+  background-color: #fc0505;
+}
+
+</style>
+<body>
+  {% extends "template.html" %}
+  {% block content %}
+  <div>
+    <form method="post">
+     <ul>
+       <li>
+         <input type="text" id="name" name="name" value="{{ request.form['name'] }}" placeholder="Name">
+       </li>
+       <li>
+         <input type="email" id="email" name="email" value="{{ request.form['email'] }}" placeholder="Email">
+       </li>
+       <li>
+         <input type="text" id="subject" name="subject" value="{{ request.form['subject'] }}" placeholder="Subject">
+       </li>
+       <li>
+         <textarea id="message" name="message" placeholder="Enter your message here...">{{ request.form['message'] }}</textarea>
+       </li>
+       <li class="button">
+         <button class="button" type="submit">Send your message</button>
+       </li>
+     </ul>
+    </form>
+  </div>
+  <div class="content">
+    {% for message in get_flashed_messages() %}
+      <div class="alert">{{ message }}</div>
+    {% endfor %}
+  </div>
+  {% endblock %}
+</body>
+</html>

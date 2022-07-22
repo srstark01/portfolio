@@ -1,6 +1,7 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, url_for, flash, redirect
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = '9c00d036a14dc8ebf17b61b1079b7d69c0e2097bbe6faf13'
 
 
 # @app.route("/") # at the endpoint /
@@ -39,14 +40,50 @@ def home():
   return render_template("home.html")
 
 
-@app.route("/kail")
-def Kail():
-  return "Kail is a NERD!!!"
+# @app.route("/kail")
+# def Kail():
+#   return "Kail is a NERD!!!"
 
 
-@app.route("/about")
-def about():
-  return render_template("about.html")
+@app.route("/resume")
+def resume():
+  return render_template("resume.html")
+
+
+# messages = [{'title': 'Message One',
+#              'content': 'Message One Content'},
+#             {'title': 'Message Two',
+#              'content': 'Message Two Content'}
+#             ]
+
+
+# @app.route('/index')
+# def index():
+#     return render_template('index.html', messages=messages)
+
+
+@app.route('/contact', methods=('GET', 'POST'))
+def contact():
+  if request.method == 'POST':
+    name = request.form['name']
+    email = request.form['email']
+    subject = request.form['subject']
+    message = request.form['message']
+
+    if not name:
+      flash('Name is required!')
+    elif not email:
+      flash('Email is required!')
+    elif not subject:
+      flash('Subject is required!')
+    elif not message:
+      flash('Message is required!')
+
+  # else:
+  #   messages.append({'title': title, 'content': content})
+  #   return redirect(url_for('index'))
+
+  return render_template('contact.html')
 
 
 if __name__ == '__main__': # on running python app.py
