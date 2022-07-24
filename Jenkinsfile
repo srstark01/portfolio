@@ -20,7 +20,9 @@ pipeline {
     {
       steps {
         echo "deploying the application"
+	sh "docker image rm -f portfolio"
         sh "docker build -t portfolio ."
+	sh "docker rm -f portfolio"
 	sh "docker run --name portfolio -p 80:5000 portfolio"
       }
     }
