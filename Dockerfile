@@ -6,7 +6,6 @@ WORKDIR /app
 
 COPY requirements.txt requirements.txt
 
-RUN apt-get install docker-compose-plugin
 RUN pip3 install -r requirements.txt
 
 COPY . .
