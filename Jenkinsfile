@@ -20,7 +20,7 @@ pipeline {
     {
       steps {
         echo "deploying the application"
-	sh "docker-compose up"
+	sh "docker-compose up -d"
       }
     }
   }
