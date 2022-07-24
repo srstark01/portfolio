@@ -30,8 +30,7 @@ label {
   text-align: left;
 }
 
-input,
-textarea {
+input {
   /* To make sure that all text fields have the same font settings
      By default, textareas have a monospace font */
   font: 1em sans-serif;
@@ -46,19 +45,25 @@ textarea {
   border: 1px solid #ffffff;
 }
 
-input:focus,
-textarea:focus {
+input:focus {
   /* Additional highlight for focused elements */
   border-color: #000;
 }
 
-textarea {
-  /* Align multiline text fields with their labels */
-  vertical-align: top;
-
-  /* Provide space to type some text */
-  height: 10em;
+table {
+  border: 1px solid #ffffff;
+  color: #ffffff;
+  border-collapse: collapse;
+  margin-top: 100px;
+  width: 100%;
 }
+
+th, td {
+  border: 1px solid #ffffff;
+  color: #ffffff;
+  border-collapse: collapse;
+}
+
 
 .button {
   margin-top: 1em;
@@ -96,31 +101,65 @@ textarea {
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Contact Me</title>
+    <title>Subnet Calculator</title>
   </head>
   <body>
     {% extends "template.html" %}
     {% block content %}
-    <h1 class="heading">Contact Me</h1>
-    <p class="paragraph">Feel free to send me a message if you like the site, or if you have questions about my work.</p>
+    <h1 class="heading">Subnet Calculator</h1>
+    <p class="paragraph">Enter an IP address and Subnet Mask or CIDR below.</p>
     <div>
       <form method="post">
        <ul>
          <li>
-           <input type="text" id="name" name="name" value="{{ request.form['name'] }}" placeholder="Name">
+           <input type="text" id="ip" name="ip" value="{{ request.form['ip'] }}" placeholder="IP Address">
          </li>
          <li>
-           <input type="email" id="email" name="email" value="{{ request.form['email'] }}" placeholder="Email">
-         </li>
-         <li>
-           <input type="text" id="subject" name="subject" value="{{ request.form['subject'] }}" placeholder="Subject">
-         </li>
-         <li>
-           <textarea id="message" name="message" placeholder="Enter your message here...">{{ request.form['message'] }}</textarea>
+           <input type="text" id="mask" name="mask" value="{{ request.form['mask'] }}" placeholder="Subnet Mask or CIDR">
          </li>
          <li class="button">
-           <button class="button" type="submit">Send your message</button>
+           <button class="button" type="submit">Click Here for Awesome!!!</button>
          </li>
+         {% for item in data %}
+           <table>
+	     <tr>
+	       <td>IP Address</td>
+               <td>{{item.ip}}</td>
+	     </tr>
+	     <tr>
+	       <td>Network Address</td>
+               <td>{{item.network}}</td>
+	     </tr>
+	     <tr>
+	       <td>Subnet Mask</td>
+	       <td>{{item.subnet}}</td>
+	     </tr>
+	     <tr>
+  	       <td>Wildcard Mask</td>
+	       <td>{{item.wildcard}}</td>
+	     </tr>
+	     <tr>
+	       <td>First IP in Range</td>
+	       <td>{{item.first}}</td>
+	     </tr>
+	     <tr>
+  	       <td>Last IP in Range</td>
+	       <td>{{item.last}}</td>
+	     </tr>
+	     <tr>
+	       <td>Broadcast Address</td>
+	       <td>{{item.broadcast}}</td>
+	     </tr>
+	     <tr>
+  	       <td>Total Hosts in Range</td>
+	       <td>{{item.hosts}}</td>
+	     </tr>
+	     <tr>
+	       <td>CIDR Notation</td>
+	       <td>{{item.subnet}}</td>
+	     </tr>
+	   </table>
+         {% endfor %}
        </ul>
       </form>
     </div>

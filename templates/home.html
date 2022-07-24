@@ -1,4 +1,17 @@
 <!DOCTYPE html>
+<style>
+
+.heading {
+  text-align: center;
+  font-size: 50px;
+}
+
+.tagline {
+  text-align: center;
+  font-size: 25px;
+}
+
+</style>
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
@@ -7,14 +20,9 @@
   <body>
     <body style="color:white;"</body>
     {% extends "template.html" %}
-    {% block content %}
-    
-    <h1>
-      <center>Shawn Stark</center>
-    </h1>
-    <p>
-      <center>Automating the World!!! One line at a time!!!</center>
-    </p>
+    {% block content %}    
+    <h1 class="heading">Shawn Stark</h1>
+    <p class="tagline">Automating the World!!! One line at a time!!!</p>
     {% endblock %}
   </body>
 </html>

@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, url_for, flash, redirect
+from subnetter import Subnetter
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '9c00d036a14dc8ebf17b61b1079b7d69c0e2097bbe6faf13'
@@ -62,30 +63,88 @@ def resume():
 #     return render_template('index.html', messages=messages)
 
 
-@app.route('/contact', methods=('GET', 'POST'))
-def contact():
+# @app.route('/contact', methods=('GET', 'POST'))
+# def contact():
+#   if request.method == 'POST':
+#     name = request.form['name']
+#     email = request.form['email']
+#     subject = request.form['subject']
+#     message = request.form['message']
+#
+#     if not name:
+#       flash('Name is required!')
+#     elif not email:
+#       flash('Email is required!')
+#     elif not subject:
+#       flash('Subject is required!')
+#     elif not message:
+#       flash('Message is required!')
+#
+#   # else:
+#   #   messages.append({'title': title, 'content': content})
+#   #   return redirect(url_for('index'))
+#
+#   return render_template('contact.html')
+
+
+@app.route('/subnetter', methods=('GET', 'POST'))
+def subnetter():
   if request.method == 'POST':
-    name = request.form['name']
-    email = request.form['email']
-    subject = request.form['subject']
-    message = request.form['message']
+    ip = request.form['ip']
+    mask = request.form['mask'].strip('/')
 
-    if not name:
-      flash('Name is required!')
-    elif not email:
-      flash('Email is required!')
-    elif not subject:
-      flash('Subject is required!')
-    elif not message:
-      flash('Message is required!')
+    if not ip or not validIP(ip):
+        flash('Vaild IP Address is required!')
+    elif not mask or (not validIP(mask) and not valid_cidr(mask)):
+        flash('Valid Subnet Mask is required!')
+    else:
+      query = Subnetter(ip, mask)
+      data = [{
+          'ip': ip,
+          'network': query.network()[0],
+          'subnet': query.network()[1],
+          'wildcard': query.wildcard(),
+          'first': query.first(),
+          'last': query.last(),
+          'broadcast': query.broadcast(),
+          'hosts': query.hosts(),
+          'cidr': query.cidr()
+          }]
+      return render_template('subnetter.html', data=data)
 
-  # else:
-  #   messages.append({'title': title, 'content': content})
-  #   return redirect(url_for('index'))
+#   # else:
+#   #   messages.append({'title': title, 'content': content})
+#   #   return redirect(url_for('index'))
+#
+  return render_template('subnetter.html')
 
-  return render_template('contact.html')
+
+def validIP(ip):
+  octets = ip.split('.')
+  if len(octets) != 4:
+    return False
+  for idx, octet in enumerate(octets):
+    try:
+      if not 0 <= int(octet) <= 255:
+        print('here')
+        return False
+    except ValueError:
+      return False
+  return True
+
+
+def valid_cidr(cidr):
+  try:
+    if not 0 <= int(cidr) <= 32:
+      return False
+  except ValueError:
+    return False
+  return True
+
 
 
 if __name__ == '__main__': # on running python app.py
   app.run(debug=True)
+
+
 
