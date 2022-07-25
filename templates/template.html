@@ -2,10 +2,23 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/template.css') }}">
 <style>
 body {
   font-family: "Lato", sans-serif;
+}
+
+html, body {
+  overflow: auto;
+}
+
+.background-container {
+  width: 100vw;
+  height: 100vh;
+  background-image: url(images/background.jpg);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  position: fixed;
 }
 
 .sidenav {
@@ -96,7 +109,7 @@ body {
 }
 </style>
 </head>
-<body>
+<body class="background-container">
 
 <div id="mySidenav" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
