@@ -8,3 +8,5 @@ services:
   - 80:5000
   volumes:
   - ./:/app
+  - /var/run/docker.sock:/var/run/docker.sock
+  - $(which docker):$(which docker)
