@@ -9,4 +9,3 @@ services:
   volumes:
   - ./:/app
   - /var/run/docker.sock:/var/run/docker.sock
-  - $(which docker):$(which docker)
