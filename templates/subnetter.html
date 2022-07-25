@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 
 <style>
-
+/*
 form {
-  /* Center the form on the page */
   margin: 0;
   position: absolute;
   top: 50%;
   left: 50%;
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
+  display: block;
 }
+*/
 
 ul {
   list-style: none;
@@ -18,9 +19,26 @@ ul {
   margin: 0;
 }
 
+/*
+ul {
+  margin: 0px 0px 0px 0px;
+  position: relative;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+*/
+li {
+  margin: 15px 10px 15px auto;
+  position: relative;
+}
+
+/*
 form li + li {
+  position: relative;
   margin-top: 1em;
 }
+*/
 
 label {
   /* Uniform size & alignment */
@@ -34,11 +52,11 @@ input {
   /* To make sure that all text fields have the same font settings
      By default, textareas have a monospace font */
   font: 1em sans-serif;
-  background: transparent;
+  background: black;
   color: #ffffff;
 
   /* Uniform text field size */
-  width: 300px;
+  width: 200px;
   box-sizing: border-box;
 
   /* Match form field borders */
@@ -48,8 +66,10 @@ input {
 input:focus {
   /* Additional highlight for focused elements */
   border-color: #000;
+  background: black;
 }
 
+/*
 table {
   border: 1px solid #ffffff;
   color: #ffffff;
@@ -57,28 +77,59 @@ table {
   margin-top: 100px;
   width: 100%;
 }
+*/
 
 th, td {
   border: 1px solid #ffffff;
   color: #ffffff;
   border-collapse: collapse;
+  background: black;
+  text-align: left
 }
 
+/*.button {
+  background-color: #1bfa02;
+  border: none;
+  color: #1bfa02;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  width: 300px;
+}*/
 
 .button {
-  margin-top: 1em;
+  background-color: #1bfa02;
+  color: black;
+  border: 2px solid #4CAF50;
+  width: 200px
+}
+
+.button:hover {
+  background-color: black;
+  color: white;
+}
+
+/*.button {
+  margin: 0px auto 0px auto;
+  position: relative;
+  margin-top: 0px;
   position: absolute;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: #1bfa02;
   color: #000000;
-  width: 200px;
+  width: 300px;
   border-color: #ffffff;
-}
+}*/
 
 .alert {
-  padding: 5px;
-  margin: 5px;
+  margin-top: 0px;
+  position: relative;
   color: #000000;
   background-color: #fc0505;
 }
@@ -90,11 +141,48 @@ th, td {
 }
 
 .paragraph {
-  text-align: center;
+  margin: 25px 10% 25px 10%;
+  display: inline block;
+  position: relative;
   font-size: 25px;
   color: #ffffff;
+  text-indent: 0em;
 }
 
+::placeholder {
+  color: white;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: #fff !important;
+}
+
+a {
+  color: #1bfa02;
+}
+
+.form {
+  margin: 25px auto 55px auto;
+  position: relative;
+  text-align: center;
+}
+
+.content {
+  margin: 25px auto 25px auto;
+  position: relative;
+}
+
+.table {
+  margin: 0px auto 25px auto;
+  border: 1px solid #ffffff;
+  color: #ffffff;
+  border-collapse: collapse;
+  width: 300px;
+}
 
 </style>
 
@@ -107,9 +195,14 @@ th, td {
     {% extends "template.html" %}
     {% block content %}
     <h1 class="heading">Subnet Calculator</h1>
-    <p class="paragraph">Enter an IP address and Subnet Mask or CIDR below.</p>
     <div>
-      <form method="post">
+      <p class="paragraph">
+        Here is a simple subnet calculator I created from scratch using python. The subnet calculator uses a method called ANDing.
+	ANDing calcualtes a network address by converting a given IP adress and subnet mask to their binary equilivents.
+	Once this is done we can calculate things like range, from first adress to last address, broadcast address and the total
+	number of available hosts. If you'd like to learn more about how ANDing works
+	<a href="https://people.richland.edu/dkirby/141anding.htm">check out this site</a>.</p>
+      <form class="form" method="post">
        <ul>
          <li>
            <input type="text" id="ip" name="ip" value="{{ request.form['ip'] }}" placeholder="IP Address">
@@ -117,11 +210,11 @@ th, td {
          <li>
            <input type="text" id="mask" name="mask" value="{{ request.form['mask'] }}" placeholder="Subnet Mask or CIDR">
          </li>
-         <li class="button">
+         <li>
            <button class="button" type="submit">Click Here for Awesome!!!</button>
          </li>
          {% for item in data %}
-           <table>
+           <table class="table">
 	     <tr>
 	       <td>IP Address</td>
                <td>{{item.ip}}</td>
@@ -162,11 +255,11 @@ th, td {
          {% endfor %}
        </ul>
       </form>
-    </div>
-    <div class="content">
-      {% for message in get_flashed_messages() %}
-        <div class="alert">{{ message }}</div>
-      {% endfor %}
+      <div class="content">
+        {% for message in get_flashed_messages() %}
+          <div class="alert">{{ message }}</div>
+        {% endfor %}
+      </div>
     </div>
     {% endblock %}
   </body>

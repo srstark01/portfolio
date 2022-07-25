@@ -3,23 +3,21 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
+
 body {
-  font-family: "Lato", sans-serif;
-}
-
-html, body {
-  overflow: auto;
-}
-
-.background-container {
-  width: 100vw;
-  height: 100vh;
-  background-image: url(images/background.jpg);
-  background-repeat: no-repeat;
-  background-position: center center;
+  margin: 0;
+  padding: 0;
+  font-family: "Helvetica Heue", Helvetica, Arial, sans-serif;
+  color: #444;
+  text-indent: 10px;
+  background: #EDEBED url(static/css/images/background.jpg) no-repeat center center fixed;
+  background-color: black;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
   background-size: cover;
-  position: fixed;
 }
+
 
 .sidenav {
   height: 100%;
@@ -109,7 +107,7 @@ html, body {
 }
 </style>
 </head>
-<body class="background-container">
+<body>
 
 <div id="mySidenav" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
