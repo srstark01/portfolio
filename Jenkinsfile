@@ -12,7 +12,7 @@ pipeline {
     }
    stage('Test') {
       steps {
-        sh 'echo "Tests go here"'
+        sh 'pytest'
       }
     }
   
@@ -20,7 +20,7 @@ pipeline {
     {
       steps {
         echo "deploying the application"
-	sh "docker-compose up -d"
+	sh "docker-compose up -d --build"
       }
     }
   }
