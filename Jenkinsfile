@@ -5,7 +5,6 @@ pipeline {
       parallel {
         stage('Build') {
           steps {
-            sh 'pip3 --install --upgrade pip'
             sh 'pip3 install numpy pytest'
           }
         }
