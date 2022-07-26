@@ -5,14 +5,15 @@ pipeline {
       parallel {
         stage('Build') {
           steps {
-            sh 'pip3 install pytest'
+            sh 'pip3 --install --upgrade pip'
+            sh 'pip3 install numpy pytest'
           }
         }
       }
     }
    stage('Test') {
       steps {
-        sh 'pytest'
+        sh 'python -m pytest .'
       }
     }
   
