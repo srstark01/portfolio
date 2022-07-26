@@ -17,7 +17,7 @@ class Subnetter():
 
   def binary(self):
     try:
-      if 0 < int(self.mask) < 32:
+      if 0 <= int(self.mask) <= 32:
         bin_mask = self.cidr_to_bin()
     except ValueError:
       bin_mask = '.'.join(

@@ -112,15 +112,14 @@ body {
 <div id="mySidenav" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
   <a href="{{ url_for('home') }}">Home</a>
-  <a href="{{ url_for('resume') }}">Resume</a>
   <button class="dropdown-btn">Projects 
     <i class="fa fa-caret-down"></i>
   </button>
   <div class="dropdown-container">
+    <a href="{{ url_for('cisco') }}">Cisco Project</a>
     <a href="{{ url_for('subnetter') }}">Subnet Calculator</a>
-    <a href="#">Link 2</a>
-    <a href="#">Link 3</a>
   </div>
+  <a href="{{ url_for('resume') }}">Resume</a>
 </div>
 
 <span style="color:white;font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menu</span>

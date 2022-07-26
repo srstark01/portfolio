@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, url_for, flash, redirect
-from subnetter import Subnetter
+from subnetter.subnetter import Subnetter
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '9c00d036a14dc8ebf17b61b1079b7d69c0e2097bbe6faf13'
@@ -111,12 +111,12 @@ def subnetter():
           'cidr': query.cidr()
           }]
       return render_template('subnetter.html', data=data)
-
-#   # else:
-#   #   messages.append({'title': title, 'content': content})
-#   #   return redirect(url_for('index'))
-#
   return render_template('subnetter.html')
+
+
+@app.route("/cisco")
+def cisco():
+  return render_template("cisco.html")
 
 
 def validIP(ip):
