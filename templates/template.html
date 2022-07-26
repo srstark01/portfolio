@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" dir="ltr">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
@@ -10,9 +10,8 @@ body {
   font-family: "Helvetica Heue", Helvetica, Arial, sans-serif;
   color: #444;
   text-indent: 10px;
-  background: #EDEBED url(static/css/images/background.jpg) no-repeat center center fixed;
-  background-color: black;
-  -webkit-background-size: cover;
+    background: black url(static/css/images/background.jpg) no-repeat fixed center center;
+    -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
@@ -74,19 +73,6 @@ body {
   color: #1bfa02;
 }
 
-/* Main content */
-.main {
-  margin-left: 200px; /* Same as the width of the sidenav */
-  font-size: 20px; /* Increased text to enable scrolling */
-  padding: 0px 10px;
-}
-
-/* Add an active class to the active dropdown button */
-.active {
-  background-color: green;
-  color: white;
-}
-
 /* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
 .dropdown-container {
   display: none;
@@ -135,14 +121,14 @@ function closeNav() {
 }
 
 /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
-var dropdown = document.getElementsByClassName("dropdown-btn");
-var i;
+const dropdown = document.getElementsByClassName("dropdown-btn");
+let i;
 
 for (i = 0; i < dropdown.length; i++) {
   dropdown[i].addEventListener("click", function() {
     this.classList.toggle("active");
-    var dropdownContent = this.nextElementSibling;
-    if (dropdownContent.style.display === "block") {
+      const dropdownContent = this.nextElementSibling;
+      if (dropdownContent.style.display === "block") {
       dropdownContent.style.display = "none";
     } else {
       dropdownContent.style.display = "block";

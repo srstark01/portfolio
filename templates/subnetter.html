@@ -70,7 +70,7 @@ th, td {
 
 .paragraph {
   margin: 25px 10% 25px 10%;
-  display: inline block;
+  display: inline-block;
   position: relative;
   font-size: 16px;
   color: #ffffff;
@@ -137,10 +137,12 @@ a {
       <form class="form" method="post">
        <ul>
          <li>
-           <input type="text" id="ip" name="ip" value="{{ request.form['ip'] }}" placeholder="IP Address">
+             <label for="ip"></label>
+             <input type="text" id="ip" name="ip" value="{{ request.form['ip'] }}" placeholder="IP Address">
          </li>
          <li>
-           <input type="text" id="mask" name="mask" value="{{ request.form['mask'] }}" placeholder="Subnet Mask or CIDR">
+             <label for="mask"></label>
+             <input type="text" id="mask" name="mask" value="{{ request.form['mask'] }}" placeholder="Subnet Mask or CIDR">
          </li>
          <li>
            <button class="button" type="submit">Click Here for Awesome!!!</button>

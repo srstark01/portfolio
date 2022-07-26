@@ -3,7 +3,6 @@
 <style>
 
 form {
-  /* Center the form on the page */
   margin: 0;
   position: absolute;
   top: 50%;
@@ -23,7 +22,6 @@ form li + li {
 }
 
 label {
-  /* Uniform size & alignment */
   display: inline-block;
   width: 90px;
   color: #FFFFFF;
@@ -32,31 +30,21 @@ label {
 
 input,
 textarea {
-  /* To make sure that all text fields have the same font settings
-     By default, textareas have a monospace font */
   font: 1em sans-serif;
   background: transparent;
   color: #ffffff;
-
-  /* Uniform text field size */
   width: 300px;
   box-sizing: border-box;
-
-  /* Match form field borders */
   border: 1px solid #ffffff;
 }
 
 input:focus,
 textarea:focus {
-  /* Additional highlight for focused elements */
   border-color: #000;
 }
 
 textarea {
-  /* Align multiline text fields with their labels */
   vertical-align: top;
-
-  /* Provide space to type some text */
   height: 10em;
 }
 
@@ -107,16 +95,21 @@ textarea {
       <form method="post">
        <ul>
          <li>
-           <input type="text" id="name" name="name" value="{{ request.form['name'] }}" placeholder="Name">
+             <label for="name"></label>
+             <input type="text" id="name" name="name" value="{{ request.form['name'] }}" placeholder="Name">
          </li>
          <li>
-           <input type="email" id="email" name="email" value="{{ request.form['email'] }}" placeholder="Email">
+             <label for="email"></label>
+             <input type="email" id="email" name="email" value="{{ request.form['email'] }}" placeholder="Email">
          </li>
          <li>
-           <input type="text" id="subject" name="subject" value="{{ request.form['subject'] }}" placeholder="Subject">
+             <label for="subject"></label>
+             <input type="text" id="subject" name="subject" value="{{ request.form['subject'] }}" placeholder="Subject">
          </li>
          <li>
-           <textarea id="message" name="message" placeholder="Enter your message here...">{{ request.form['message'] }}</textarea>
+             <label for="message"></label>
+             <textarea id="message" name="message" placeholder="Enter your message here...">
+                 {{ request.form['message'] }}</textarea>
          </li>
          <li class="button">
            <button class="button" type="submit">Send your message</button>
