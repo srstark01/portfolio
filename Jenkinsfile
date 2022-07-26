@@ -5,7 +5,7 @@ pipeline {
       parallel {
         stage('Build') {
           steps {
-            sh 'echo "building the repo"'
+            sh 'pip3 install pytest'
           }
         }
       }
