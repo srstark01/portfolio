@@ -3,6 +3,8 @@ class Subnetter:
     def __init__(self, ip, mask):
         self.ip = ip
         self.mask = mask.strip('/')
+        self.ipChecker()
+        self.maskChecker()
 
     def cidr_to_bin(self):
         li = []
@@ -22,9 +24,14 @@ class Subnetter:
             if 0 <= int(self.mask) <= 32:
                 bin_mask = self.cidr_to_bin()
                 return bin_ip, bin_mask
+            else:
+                return bin_ip, None
         except ValueError:
-            bin_mask = '.'.join(
-                ['{0:08b}'.format(int(x)) for x in self.mask.split('.')])
+            try:
+                bin_mask = '.'.join(
+                    ['{0:08b}'.format(int(x)) for x in self.mask.split('.')])
+            except ValueError:
+                return bin_ip, None
             return bin_ip, bin_mask
 
     def ander(self):
@@ -46,9 +53,12 @@ class Subnetter:
         return net, sub
 
     def first(self):
-        net, _ = self.network()
-        return '.'.join([x if i != 3 else str(int(x) + 1) for i, x in enumerate(
-          net.split('.'))])
+        if 31 <= int(self.cidr()) <= 32:
+            return 'NA'
+        else:
+            net, _ = self.network()
+            return '.'.join([x if i != 3 else str(
+                int(x) + 1) for i, x in enumerate(net.split('.'))])
 
     def broadcast(self):
         li = []
@@ -64,9 +74,12 @@ class Subnetter:
         return '.'.join(li)
 
     def last(self):
-        broadcast = self.broadcast()
-        return '.'.join([x if i != 3 else str(int(x) - 1) for i, x in enumerate(
-          broadcast.split('.'))])
+        if 31 <= int(self.cidr()) <= 32:
+            return 'NA'
+        else:
+            broadcast = self.broadcast()
+            return '.'.join([x if i != 3 else str(
+                int(x) - 1) for i, x in enumerate(broadcast.split('.'))])
 
     def hosts(self):
         _, sub = self.binary()
@@ -82,3 +95,40 @@ class Subnetter:
     def cidr(self):
         _, sub = self.binary()
         return sub.count('1')
+
+    def maskChecker(self):
+        _, sub = self.binary()
+        if sub is None:
+            raise ValueError('Subnet is Invalid')
+        mask = ''.join([x for x in sub.split('.')])
+        if len(mask) != 32:
+            raise ValueError('Subnet is Invalid')
+        else:
+            foundZero = False
+            for bit in mask:
+              try:
+                  int(bit) + 1
+              except ValueError:
+                  raise ValueError('Subnet is Invalid')
+              if foundZero:
+                  if int(bit) == 0:
+                      pass
+                  else:
+                      raise ValueError('Subnet is Invalid')
+              else:
+                  if int(bit) == 0:
+                      foundZero = True
+                  elif  int(bit) > 1:
+                      raise ValueError('Subnet is Invalid')
+
+    def ipChecker(self):
+        octets = self.ip.split('.')
+        if len(octets) != 4:
+            raise ValueError('IP is Invalid')
+        for idx, octet in enumerate(octets):
+            try:
+                if not 0 <= int(octet) <= 255:
+                    raise ValueError('IP is Invalid')
+            except ValueError:
+                raise ValueError('IP is Invalid')
+
