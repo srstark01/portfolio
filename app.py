@@ -16,33 +16,35 @@ def resume():
     return render_template("resume.html")
 
 
-@app.route('/subnetter', methods=('POST'))
+@app.route('/subnetter', methods=('GET', 'POST'))
 def subnetter():
     if request.method == 'POST':
         ip = request.form['ip']
         mask = request.form['mask'].strip('/')
 
-        if not ip or not valid_ip(ip):
-            flash('Valid IP Address is required!')
-        elif not mask or not valid_mask(mask):
-            flash('Valid Subnet Mask is required!')
-        else:
-            try:
-                query = Subnetter(ip, mask)
-                data = [{
-                    'ip': ip,
-                    'network': query.network()[0],
-                    'subnet': query.network()[1],
-                    'wildcard': query.wildcard(),
-                    'first': query.first(),
-                    'last': query.last(),
-                    'broadcast': query.broadcast(),
-                    'hosts': query.hosts(),
-                    'cidr': query.cidr()
-                    }]
-                return render_template('subnetter.html', data=data)
-            except ValueError as error:
-                flash('error')
+        try:
+            query = Subnetter(ip, mask)
+            data = [{
+                'ip': ip,
+                'network': query.network()[0],
+                'subnet': query.network()[1],
+                'wildcard': query.wildcard(),
+                'first': query.first(),
+                'last': query.last(),
+                'broadcast': query.broadcast(),
+                'hosts': query.hosts(),
+                'cidr': query.cidr()
+                }]
+            return render_template('subnetter.html', data=data)
+        except ValueError as error:
+            flash(error)
+       #  if not ip:
+       #      flash('Valid IP Address is required!')
+       #  elif not mask:
+       #      flash('Valid Subnet Mask is required!')
+       #  else:
+            # try:
+                # query = Subnetter(ip, mask)
     return render_template('subnetter.html')
 
 
