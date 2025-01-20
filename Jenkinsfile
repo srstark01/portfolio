@@ -5,6 +5,7 @@ pipeline {
        parallel {
          stage('Build') {
            steps {
+             sh 'source .venv/bin/activate'
              sh 'pip3 install numpy pytest'
            }
          }
