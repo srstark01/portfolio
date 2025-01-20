@@ -24,9 +24,9 @@ pipeline {
     stage('Deploy')
     {
       steps {
-        withEnv(["HOME=${env.WORKSPACE}"]) {
-          echo "deploying the application"
-          sh "ssh ubuntu@10.10.2.10 'touch jenkinstest'"
+        echo "deploying the application"
+        sshagent(['production']) {
+          sh "ssh -o StrictHostKeyChecking=no ubuntu@10.10.2.10 'touch jenkinstest'"
         }
       }
     }
