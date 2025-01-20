@@ -1,15 +1,13 @@
 pipeline {
-  agent {
-    docker { image 'python:3' }
-  }
+  agent any
   stages {
    stage('Build') {
       parallel {
         stage('Build') {
           steps {
-            withEnv(["HOME=${env.WORKSPACE}"]) {
-              sh 'pip3 install numpy pytest'
-            }
+            sh 'cd /home/ubuntu/jenkins-env/'
+            sh 'source .venv/bin/'
+            sh 'pip3 install numpy pytest'
           }
         }
       }
