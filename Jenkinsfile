@@ -1,11 +1,13 @@
 pipeline {
   agent any
+  environment {
+    PYTHONPATH = "${env,WORKSPACE}/test"
+  }
   stages {
     stage('Build') {
        parallel {
          stage('Build') {
            steps {
-             sh 'source .venv/bin/activate'
              sh 'pip3 install numpy pytest'
            }
          }
