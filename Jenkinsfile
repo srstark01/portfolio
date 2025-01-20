@@ -5,8 +5,6 @@ pipeline {
        parallel {
          stage('Build') {
            steps {
-             sh 'cd jenkins-portfolio-venv'
-             sh 'source .venv/bin/activate'
              sh 'pip3 install numpy pytest'
            }
          }
