@@ -48,9 +48,14 @@ def subnetter():
     return render_template('subnetter.html')
 
 
-@app.route("/cisco")
-def cisco():
-    return render_template("cisco.html")
+@app.route("/eagleeye")
+def eagleeye():
+    return render_template("eagleeye.html")
+
+
+#@app.route("/cisco")
+#def cisco():
+#    return render_template("cisco.html")
 
 
 # def valid_ip(ip):
