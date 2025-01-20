@@ -24,8 +24,10 @@ pipeline {
     stage('Deploy')
     {
       steps {
-        echo "deploying the application"
-        echo "ssh ubuntu@172.17.0.1 'touch jenkinstest'"
+        withEnv(["HOME=${env.WORKSPACE}"]) {
+          echo "deploying the application"
+          echo "ssh ubuntu@172.17.0.1 'touch jenkinstest'"
+        }
       }
     }
   }
