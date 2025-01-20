@@ -201,7 +201,7 @@ class TestSubnetter:
 
     def test_binary(self):
         for case in cases:
-            assert Subnetter(case[0], case[6]).binary() == (case[8], case[7])
+            assert Subnetter(case[0], case[6]).binary() == (case[8], case[9])
             assert Subnetter(case[0], case[11]).binary() == (case[8], case[9])
 
     def test_ander(self):
