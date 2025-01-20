@@ -1,7 +1,6 @@
 pipeline {
-  agent any
-  environment {
-    PYTHONPATH = "${env.WORKSPACE}/test"
+  agent {
+    docker { image 'python:3' }
   }
   stages {
     stage('Build') {
@@ -21,7 +20,6 @@ pipeline {
     stage('Deploy') {
       steps {
         echo "deploying the application"
-        sh "ssh -o StrictHostKeyChecking=no ubuntu@10.10.2.10 'cd portfolio ; git pull ; sudo docker restart portfolio-web-1'"
       }
     }
   }
@@ -31,7 +29,7 @@ pipeline {
       junit allowEmptyResults: true, testResults:'**/test_reports/*.xml'
     }
     success {                   
-      echo "Flask Application Up and running!!"
+      echo "Deploying to app nodes!!!"
     }
     failure {
       echo 'Build stage failed'
