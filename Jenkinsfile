@@ -5,8 +5,8 @@ pipeline {
       parallel {
         stage('Build') {
           steps {
-            sh 'cd /home/ubuntu/jenkins-env/'
-            sh 'source .venv/bin/'
+            sh 'cd /home/ubuntu/jenkins-portfolio-venv/'
+            sh 'source .venv/bin/activate'
             sh 'pip3 install numpy pytest'
           }
         }
@@ -14,7 +14,6 @@ pipeline {
     }
    stage('Test') {
       steps {
-        withEnv(["HOME=${env.WORKSPACE}"]) {
           sh 'python3 -m pytest .'
         }
       }
@@ -22,10 +21,9 @@ pipeline {
     stage('Deploy')
     {
       steps {
-        withEnv(["HOME=${env.WORKSPACE}"]) {
           echo "deploying the application"
-          sshagent(['sshkey']) {
-            sh "sudo ssh -o StrictHostKeyChecking=no ubuntu@10.10.2.10 'touch jenkinstest'"
+          sh "sudo ssh -o StrictHostKeyChecking=no ubuntu@10.10.2.10 'cd potfolio ; git pull ; sudo docker restart portfolio-web-1'"
+          sh "sudo ssh -o StrictHostKeyChecking=no ubuntu@10.10.2.11 'cd potfolio ; git pull ; sudo docker restart portfolio-web-1'"
           }
         }
       }
