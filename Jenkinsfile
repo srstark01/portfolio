@@ -1,15 +1,6 @@
 pipeline {
   agent any
   stages {
-    stage('Build') {
-      parallel {
-        stage('Build') {
-          steps {
-            sh 'pip3 install numpy pytest'
-          }
-        }
-      }
-    }
    stage('Test') {
       steps {
         sh 'python3 -m pytest .'
