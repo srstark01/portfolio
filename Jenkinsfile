@@ -14,7 +14,9 @@ pipeline {
     }
    stage('Test') {
       steps {
-        sh 'python3 -m pytest .'
+        withEnv(["HOME=${env.WORKSPACE}"]) {
+          sh 'python3 -m pytest .'
+        }
       }
     }
     stage('Deploy')
