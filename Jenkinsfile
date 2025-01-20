@@ -1,7 +1,7 @@
 pipeline {
   agent any
   environment {
-    PYTHONPATH = "${env,WORKSPACE}/test"
+    PYTHONPATH = "${env.WORKSPACE}/test"
   }
   stages {
     stage('Build') {
