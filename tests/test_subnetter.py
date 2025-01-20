@@ -256,7 +256,7 @@ class TestSubnetter:
         for mask in badMasks:
             print(mask[0], mask[1])
             with pytest.raises(ValueError) as exception:
-              Subnetter(mask[0], mask[1])
+              Subnetter(mask[0], mask[0])
             assert str(exception) == (
                 "<ExceptionInfo ValueError('Subnet is Invalid') tblen=3>")
 
