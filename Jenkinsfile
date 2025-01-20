@@ -27,7 +27,7 @@ pipeline {
         withEnv(["HOME=${env.WORKSPACE}"]) {
           echo "deploying the application"
           sshagent(['sshkey']) {
-            sh "ssh -o StrictHostKeyChecking=no ubuntu@10.10.2.10 'touch jenkinstest'"
+            sh "sudo ssh -o StrictHostKeyChecking=no ubuntu@10.10.2.10 'touch jenkinstest'"
           }
         }
       }
