@@ -25,7 +25,7 @@ pipeline {
     {
       steps {
         echo "deploying the application"
-        echo "ssh ubuntu@10.10.2.10 'touch jenkinstest'"
+        echo "ssh ubuntu@172.17.0.1 'touch jenkinstest'"
       }
     }
   }
