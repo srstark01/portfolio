@@ -7,16 +7,16 @@ pipeline {
       parallel {
         stage('Build') {
           steps {
-            sh 'pip3 install numpy pytest --user'
+            withEnv(["HOME=${env.WORKSPACE}"]) {
+              sh 'pip3 install numpy pytest'
+            }
           }
         }
       }
     }
    stage('Test') {
       steps {
-        withEnv(["HOME=${env.WORKSPACE}"]) {
-          sh 'python3 -m pytest .'
-        }
+        sh 'python3 -m pytest .'
       }
     }
     stage('Deploy')
