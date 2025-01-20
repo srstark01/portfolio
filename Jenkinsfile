@@ -26,7 +26,7 @@ pipeline {
       steps {
         echo "deploying the application"
         sshagent(['sshkey']) {
-          sh "ssh -o StrictHostKeyChecking=no 10.10.2.10 'touch jenkinstest'"
+          sh "ssh -o StrictHostKeyChecking=no -l ubuntu 10.10.2.10 'touch jenkinstest'"
         }
       }
     }
