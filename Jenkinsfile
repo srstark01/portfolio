@@ -1,12 +1,22 @@
 pipeline {
-  agent any
+  agent {
+    docker { image 'python:3' }
+  }
   stages {
+   stage('Build') {
+      parallel {
+        stage('Build') {
+          steps {
+            sh 'pip3 install numpy pytest'
+          }
+        }
+      }
+    }
    stage('Test') {
       steps {
         sh 'python3 -m pytest .'
       }
     }
-  
     stage('Deploy')
     {
       steps {
@@ -15,7 +25,6 @@ pipeline {
       }
     }
   }
-  
   post {
         always {
             echo 'The pipeline completed'
