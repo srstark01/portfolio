@@ -97,12 +97,14 @@ body {
 
 <div id="mySidenav" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-  <a href="{{ url_for('home') }}">Home</a>
+  <a href="{{ url_for('portfolio') }}">Portfolio</a>
   <button class="dropdown-btn">Projects 
     <i class="fa fa-caret-down"></i>
   </button>
   <div class="dropdown-container">
-    <a href="{{ url_for('eagleeye') }}">Eagle Eye</a>
+    <a href="{{ url_for('eagleeye') }}">EagleEye</a>
+    <a href="{{ url_for('honerableMentions') }}">Honerable Mentions</a>
+    <a href="{{ url_for('webpage') }}">Portfolio Webpage</a>
     <a href="{{ url_for('subnetter') }}">Subnet Calculator</a>
   </div>
   <a href="{{ url_for('resume') }}">Resume</a>
@@ -113,7 +115,7 @@ body {
 <script>
 
 function openNav() {
-  document.getElementById("mySidenav").style.width = "250px";
+  document.getElementById("mySidenav").style.width = "300px";
 }
 
 function closeNav() {

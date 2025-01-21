@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<style>
+
+html,body {
+  height: 100%;
+  width: 100%;
+}
+
+.heading {
+  text-align: center;
+  font-size: 75px;
+}
+
+.sub {
+  margin-top: 40px;
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-bottom: 0px;
+  text-align: left;
+  font-size: 45px;
+  text-indent: 0px;
+}
+
+p {
+  margin-top: 20px;
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-bottom: 0px;
+  font-size: 32px;
+  text-align: left;
+  text-indent: 0px;
+}
+
+a {
+  color: #1bfa02;
+}
+
+</style>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Honerable Mentions</title>
+  </head>
+  <body style="color:white;">
+    {% extends "template.html" %}
+    {% block content %}    
+    <h1 class="heading">Honerable Mentions</h1>
+    <div>
+      <p>Below are a few projects that have significantly impacted my career. Unfortunately, I am unable to share the code for compliance reasons, and I don’t have any accompanying visuals like diagrams or videos.</p>
+    </div>
+    <h1 class="sub">PortPoster</h1>
+      <p>At one point, I was frequently tasked with migrating large numbers of servers between Endpoint Groups (EPGs) in ACI. For those unfamiliar, this is the software-defined networking equivalent of migrating hosts from one switch to another. While the software-based process is less tedious than its physical counterpart, it remains time-consuming and prone to errors.</p>
+      <p>To address this, I developed PortPoster, a Python script that automated the task. What previously took hours of point-and-click changes was reduced to just 20 minutes of preparation.</p>
+      <p>Similar to
+      <a href="{{ url_for('eagleeye') }}">EagleEye</a>, PortPoster’s capabilities were later adapted for use by multiple teams. This not only streamlined deployments across the organization but also significantly lightened the workload for the network team.</p>
+    <h1 class="sub">CRC-Checker</h1>
+      <p>Another Python-based script, CRC-Checker was created to monitor network interfaces for CRC errors. Cyclic Redundancy Checks (CRC) are performed on network devices to detect errors in data transmission. CRC-Checker proactively monitored CRC error counts on interfaces and sent email alerts to identify faulty interfaces before they failed completely.</p>
+    <h1 class="sub">Ping Sweep</h1>
+      <p>Ping Sweep was a simple yet powerful tool for monitoring network states during routine maintenance. Depending on the environment, it could ping over 6,000 devices in under a minute. In cases where maintenance caused unforeseen downtimes, Ping Sweep’s detailed logging capabilities enabled us to pinpoint, within about 45 seconds, exactly when the network went down and when it came back online.</p>
+    {% endblock %}
+  </body>
+</html>

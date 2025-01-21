@@ -7,8 +7,8 @@ app.config['SECRET_KEY'] = key
 
 
 @app.route("/")
-def home():
-    return render_template("home.html")
+def portfolio():
+    return render_template("portfolio.html")
 
 
 @app.route("/resume")
@@ -51,6 +51,16 @@ def subnetter():
 @app.route("/eagleeye")
 def eagleeye():
     return render_template("eagleeye.html")
+
+
+@app.route("/webpage")
+def webpage():
+    return render_template("webpage.html")
+
+
+@app.route("/honerable-mentions")
+def honerableMentions():
+    return render_template("honerable-mentions.html")
 
 
 #@app.route("/cisco")

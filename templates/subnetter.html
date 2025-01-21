@@ -2,6 +2,11 @@
 
 <style>
 
+html,body {
+  height: 100%;
+  width: 100%;
+}
+
 ul {
   list-style: none;
   padding: 0;
@@ -22,10 +27,10 @@ label {
 
 input {
   font: 1em sans-serif;
-  font-size: 16px;
+  font-size: 24px;
   background: transparent;
   color: #ffffff;
-  width: 200px;
+  width: 250px;
   box-sizing: border-box;
   border: 1px solid #ffffff;
 }
@@ -47,7 +52,8 @@ th, td {
   background-color: #1bfa02;
   color: black;
   border: 2px solid #4CAF50;
-  width: 200px;
+  font-size: 24px;
+  width: 250px;
 }
 
 .button:hover {
@@ -64,15 +70,18 @@ th, td {
 
 .heading {
   text-align: center;
-  font-size: 50px;
+  font-size: 75px;
   color: #ffffff;
 }
 
 .paragraph {
-  margin: 25px 10% 25px 10%;
+  margin-top: 20px;
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-bottom: 0px;
   display: inline block;
   position: relative;
-  font-size: 16px;
+  font-size: 32px;
   color: #ffffff;
   text-indent: 0em;
 }
@@ -132,8 +141,9 @@ a {
 	like range, from first address to last address, broadcast address and
 	the total number of available hosts. If you'd like to learn more about
 	how ANDing works
-	<a href="https://people.richland.edu/dkirby/141anding.htm">check out 
-	  this site</a>.</p>
+	<a href=https://www.ccnablog.com/addressing-in-ipv4-part-1/#:~:text=ANDing%20is%20a%20logic%20operation,0%20AND%201%20%3D%200">check out 
+	  this site.</a>
+      </p>
       <form class="form" method="post">
        <ul>
          <li>
@@ -189,6 +199,10 @@ a {
          {% endfor %}
        </ul>
       </form>
+      <p class="paragraph">
+        Interested in seeing how this app works? Check out the code here.
+        <a href=https://github.com/srstark01/portfolio/blob/main/subnetter/subnetter.py>Check out the code here.</a>
+      </p>
       <div class="content">
         {% for message in get_flashed_messages() %}
           <div class="alert">{{ message }}</div>
