@@ -1,0 +1,36 @@
+# Ignore local dev tools and settings
+.vscode/
+.idea/
+*.swp
+
+# Ignore node/python environments (if present)
+node_modules/
+venv/
+.env
+*.env
+
+# Ignore version control
+.git/
+.gitignore
+
+# Ignore Docker-specific files not needed in the image
+docker-compose.yml
+docker-compose.override.yml
+.dockerignore
+
+# Ignore build/test scripts
+scripts/
+build/
+*.sh
+
+# Ignore logs and artifacts
+*.log
+*.pid
+*.tar
+*.gz
+*.zip
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
+
