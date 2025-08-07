@@ -7,7 +7,7 @@
 
 # Node or Python dependencies (if applicable)
 node_modules/
-venv/
+.venv/*
 .env
 *.env
 
@@ -36,3 +36,4 @@ Thumbs.db
 public/
 out/
 
+config.py

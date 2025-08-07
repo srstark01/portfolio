@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<style>
+
+html,body {
+  height: 100%;
+  width: 100%;
+}
+
+.heading {
+  text-align: center;
+  font-size: 75px;
+}
+
+.tagline {
+  text-align: center;
+  font-size: 35px;
+}
+
+.video-container {
+  height: 100%;
+  width: 100%;
+}
+
+.video-container video {
+  max-width: 95%;
+  max-height: 95%;
+  width: auto;
+  height: auto;
+  top: 50%;
+  left: 50%;
+  position: relative;
+  transform: translate(-50%,-50%);
+}
+
+p {
+  margin-top: 20px;
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-bottom: 0px;
+  font-size: 32px;
+  text-align: left;
+  text-indent: 0px;
+}
+
+</style>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>EagleEye</title>
+  </head>
+  <body style="color:white;">
+    {% extends "template.html" %}
+    {% block content %}    
+    <h1 class="heading">EagleEye</h1>
+    <div>
+      <p>EagleEye was an incredibly rewarding project to work on. Not only was it the foundation for teaching myself Python, but it also evolved into something far greater than I initially envisioned. What started as a tool for our small network team of 5–10 engineers expanded to serve an entire region with hundreds of end users across multiple teams.</p>
+      <p>Even five years later—and two years after I left the company—it continues to be an integral part of their operations. I'll keep the details brief here, as the video below provides a comprehensive overview of the project's scope and impact.</p>
+      <p>The video below was created as part of a demonstration my team presented in 2021. It highlights what EagleEye does and the many benefits it brings. While I’d love to share the code with you, doing so would likely raise security concerns with my former employer. For the same reason, some information has been redacted from the video.</p> 
+    </div>
+    <div class="video-container">
+      <video controls style="max-width: 80%;">
+        <source type="video/mp4" src="static/css/files/EagleEye 2021 Expo.mp4">
+      </video>
+    </div>
+    {% endblock %}
+  </body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<style>
+
+html,body {
+  height: 100%;
+  width: 100%;
+}
+
+.heading {
+  text-align: center;
+  font-size: 75px;
+}
+
+.tagline {
+  text-align: center;
+  font-size: 35px;
+}
+
+p {
+  margin-top: 20px;
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-bottom: 0px;
+  font-size: 32px;
+  text-align: left;
+  text-indent: 0px;
+}
+
+.image-container {
+  height: 100%;
+  width: 100%;
+}
+
+.image-container img {
+  max-width: 95%;
+  max-height: 95%;
+  width: auto;
+  height: auto;
+  top: 50%;
+  left: 50%;
+  position: relative;
+  transform: translate(-50%,-50%);
+}
+
+a {
+  color: #1bfa02;
+}
+
+</style>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Portfolio Webpage</title>
+  </head>
+  <body style="color:white;">
+    {% extends "template.html" %}
+    {% block content %}    
+    <h1 class="heading">Portfolio Webpage</h1>
+    <div>
+      <p>Creating this portfolio webpage has been another exciting pet project. The entire site is hosted on Oracle Cloud Infrastructure (OCI) and, aside from the Jenkins pipeline, all infrastructure and software are deployed using HashiCorp's Terraform. The site runs on Docker containers and is powered by Python Flask.</p>
+      <p>This project also marked my first foray into writing HTML code. The CI/CD pipeline is powered by Jenkins and GitHub, making the development process efficient and streamlined. Overall, this has been an incredible learning experience, and I’m excited to continue expanding the site with more content over time.</p>
+    </div>
+    <div class="image-container">
+      <img src="static/css/images/Diagram.png" alt="Diagram">
+    </div>
+    <div>
+      <p>Want to see more? Check out the code repos below.<br>
+      <a href="https://github.com/srstark01/OCI_Portfolio">Terraform</a><br>
+      <a href="https://github.com/srstark01/portfolio">Python/HTML</a></p>
+    </div>
+    {% endblock %}
+  </body>
+</html>

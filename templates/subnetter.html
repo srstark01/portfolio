@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+
+<style>
+
+html,body {
+  height: 100%;
+  width: 100%;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  margin: 15px 10px 15px auto;
+  position: relative;
+}
+
+label {
+  display: inline block;
+  width: 90px;
+  color: #FFFFFF;
+  text-align: left;
+}
+
+input {
+  font: 1em sans-serif;
+  font-size: 24px;
+  background: transparent;
+  color: #ffffff;
+  width: 250px;
+  box-sizing: border-box;
+  border: 1px solid #ffffff;
+}
+
+input:focus {
+  border-color: #000;
+  background: transparent;
+}
+
+th, td {
+  border: 1px solid #ffffff;
+  color: #ffffff;
+  border-collapse: collapse;
+  background: transparent;
+  text-align: left
+}
+
+.button {
+  background-color: #1bfa02;
+  color: black;
+  border: 2px solid #4CAF50;
+  font-size: 24px;
+  width: 250px;
+}
+
+.button:hover {
+  background-color: black;
+  color: white;
+}
+
+.alert {
+  margin-top: 0px;
+  position: relative;
+  color: #000000;
+  background-color: #fc0505;
+}
+
+.heading {
+  text-align: center;
+  font-size: 75px;
+  color: #ffffff;
+}
+
+.paragraph {
+  margin-top: 20px;
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-bottom: 0px;
+  display: inline block;
+  position: relative;
+  font-size: 32px;
+  color: #ffffff;
+  text-indent: 0em;
+}
+
+::placeholder {
+  color: white;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: #fff !important;
+}
+
+a {
+  color: #1bfa02;
+}
+
+.form {
+  margin: 25px auto 55px auto;
+  position: relative;
+  text-align: center;
+}
+
+.content {
+  margin: 25px auto 25px auto;
+  position: relative;
+}
+
+.table {
+  margin: 0px auto 25px auto;
+  border: 1px solid #ffffff;
+  color: #ffffff;
+  border-collapse: collapse;
+  width: 300px;
+}
+
+</style>
+
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Subnet Calculator</title>
+  </head>
+  <body>
+    {% extends "template.html" %}
+    {% block content %}
+    <h1 class="heading">Subnet Calculator</h1>
+    <div>
+      <p class="paragraph">
+	Here is a simple subnet calculator I created from scratch using python.
+	The subnet calculator uses a method called ANDing. ANDing calculates a
+	network address by converting a given IP address and subnet mask to
+	their binary equivalents. Once this is done, we can calculate things
+	like range, from first address to last address, broadcast address and
+	the total number of available hosts. If you'd like to learn more about
+	how ANDing works
+	<a href=https://www.ccnablog.com/addressing-in-ipv4-part-1/#:~:text=ANDing%20is%20a%20logic%20operation,0%20AND%201%20%3D%200">check out 
+	  this site.</a>
+      </p>
+      <form class="form" method="post">
+       <ul>
+         <li>
+             <label for="ip"></label>
+             <input type="text" id="ip" name="ip" value="{{ request.form['ip'] }}" placeholder="IP Address">
+         </li>
+         <li>
+             <label for="mask"></label>
+             <input type="text" id="mask" name="mask" value="{{ request.form['mask'] }}" placeholder="Subnet Mask or CIDR">
+         </li>
+         <li>
+           <button class="button" type="submit">Click Here for Awesome!!!</button>
+         </li>
+         {% for item in data %}
+           <table class="table">
+	     <tr>
+	       <td>IP Address</td>
+               <td>{{item.ip}}</td>
+	     </tr>
+	     <tr>
+	       <td>Network Address</td>
+               <td>{{item.network}}</td>
+	     </tr>
+	     <tr>
+	       <td>Subnet Mask</td>
+	       <td>{{item.subnet}}</td>
+	     </tr>
+	     <tr>
+  	       <td>Wildcard Mask</td>
+	       <td>{{item.wildcard}}</td>
+	     </tr>
+	     <tr>
+	       <td>First IP in Range</td>
+	       <td>{{item.first}}</td>
+	     </tr>
+	     <tr>
+  	       <td>Last IP in Range</td>
+	       <td>{{item.last}}</td>
+	     </tr>
+	     <tr>
+	       <td>Broadcast Address</td>
+	       <td>{{item.broadcast}}</td>
+	     </tr>
+	     <tr>
+  	       <td>Total Hosts in Range</td>
+	       <td>{{item.hosts}}</td>
+	     </tr>
+	     <tr>
+	       <td>CIDR Notation</td>
+	       <td>{{item.subnet}}</td>
+	     </tr>
+	   </table>
+         {% endfor %}
+       </ul>
+      </form>
+      <p class="paragraph">
+        Interested in seeing how this app works? Check out the code here.
+        <a href=https://github.com/srstark01/portfolio/blob/main/subnetter/subnetter.py>Check out the code here.</a>
+      </p>
+      <div class="content">
+        {% for message in get_flashed_messages() %}
+          <div class="alert">{{ message }}</div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endblock %}
+  </body>
+</html>
+

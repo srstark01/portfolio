@@ -58,9 +58,9 @@ def webpage():
     return render_template("webpage.html")
 
 
-@app.route("/honerable-mentions")
-def honerableMentions():
-    return render_template("honerable-mentions.html")
+@app.route("/honorable-mentions")
+def honorableMentions():
+    return render_template("honorable-mentions.html")
 
 
 #@app.route("/cisco")
