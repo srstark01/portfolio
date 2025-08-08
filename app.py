@@ -1,9 +1,9 @@
+import os
 from flask import Flask, render_template, request, flash, redirect, url_for
 from subnetter.subnetter import Subnetter
-from config import key
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = key
+app.config['SECRET_KEY'] = os.getenv("PORTFOLIO_KEY")
 
 
 @app.route("/")

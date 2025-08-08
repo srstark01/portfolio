@@ -6,7 +6,6 @@ COPY static/ static/
 COPY subnetter/ subnetter/
 COPY templates/ templates/
 COPY app.py app.py
-COPY config.py config.py
 COPY requirements.txt requirements.txt
 
 RUN pip3 install -r requirements.txt
