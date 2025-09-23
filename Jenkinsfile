@@ -1,8 +1,7 @@
 pipeline {
   agent any
   environment {
-    GITHUB_HTTPS_URL = 'https://github.com/YOUR_ORG_OR_USER/YOUR_REPO.git'
-    GITHUB_CRED_ID   = 'Github'
+    GITHUB_HTTPS_URL = 'https://github.com/srstark01/portfolio'
     DOCKERHUB_CRED   = 'Docker Hub'
   }
   stages {
