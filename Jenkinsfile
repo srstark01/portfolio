@@ -1,32 +1,31 @@
 pipeline {
   agent any
+  options { timestamps() }
   environment {
-    GITHUB_HTTPS_URL = 'https://github.com/srstark01/portfolio'
-    DOCKERHUB_CRED   = 'Docker Hub'
+    // Provided by Generic Webhook Trigger
+    DOCKER_REPO = "${env.DOCKER_REPO ?: ''}"
+    DOCKER_TAG  = "${env.DOCKER_TAG  ?: 'latest'}"
   }
   stages {
-    stage('Checkout (GitHub via HTTPS)') {
+    stage('Validate payload') {
       steps {
-        checkout([
-          $class: 'GitSCM',
-          branches: [[name: '*/main']],     // or '*/**'
-          userRemoteConfigs: [[
-            url: env.GITHUB_HTTPS_URL,
-            credentialsId: env.GITHUB_CRED_ID
-          ]]
-        ])
-        sh 'git rev-parse --short HEAD || true'
-      }
-    }
-    stage('Docker Hub: Login test') {
-      steps {
-        withCredentials([usernamePassword(credentialsId: env.DOCKERHUB_CRED, usernameVariable: 'DH_USER', passwordVariable: 'DH_PASS')]) {
-          sh '''
-            echo "$DH_PASS" | docker login -u "$DH_USER" --password-stdin
-            docker logout || true
-          '''
+        script {
+          if (!env.DOCKER_REPO?.trim()) {
+            error "Missing DOCKER_REPO from webhook payload"
+          }
+          echo "Received image update: ${env.DOCKER_REPO}:${env.DOCKER_TAG}"
         }
       }
     }
+    stage('(Optional) Pull image') {
+      when { expression { return env.DOCKER_REPO?.trim() } }
+      steps {
+        sh '''
+          docker pull ${DOCKER_REPO}:${DOCKER_TAG}
+          docker inspect ${DOCKER_REPO}:${DOCKER_TAG} --format='ID={{.Id}}'
+        '''
+      }
+    }
+    // Later: add your deploy/ansible step here
   }
 }
