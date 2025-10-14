@@ -1,31 +1,30 @@
 pipeline {
   agent any
   options { timestamps() }
-  environment {
-    // Provided by Generic Webhook Trigger
-    DOCKER_REPO = "${env.DOCKER_REPO ?: ''}"
-    DOCKER_TAG  = "${env.DOCKER_TAG  ?: 'latest'}"
-  }
+
   stages {
-    stage('Validate payload') {
+    stage('Show webhook payload variables') {
       steps {
         script {
+          echo "DOCKER_REPO='${env.DOCKER_REPO}'"
+          echo "DOCKER_TAG='${env.DOCKER_TAG}'"
           if (!env.DOCKER_REPO?.trim()) {
-            error "Missing DOCKER_REPO from webhook payload"
+            error "Missing DOCKER_REPO. Check Generic Webhook Trigger JSONPath mappings."
           }
-          echo "Received image update: ${env.DOCKER_REPO}:${env.DOCKER_TAG}"
         }
       }
     }
-    stage('(Optional) Pull image') {
+
+    stage('Pull image (sanity)') {
       when { expression { return env.DOCKER_REPO?.trim() } }
       steps {
         sh '''
-          docker pull ${DOCKER_REPO}:${DOCKER_TAG}
-          docker inspect ${DOCKER_REPO}:${DOCKER_TAG} --format='ID={{.Id}}'
+          TAG="${DOCKER_TAG:-latest}"
+          echo "Pulling ${DOCKER_REPO}:${TAG}"
+          docker pull "${DOCKER_REPO}:${TAG}"
+          docker inspect "${DOCKER_REPO}:${TAG}" --format='ID={{.Id}}'
         '''
       }
     }
-    // Later: add your deploy/ansible step here
   }
 }
