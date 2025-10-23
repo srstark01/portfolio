@@ -2,7 +2,7 @@ pipeline {
   agent any
   environment {
     GITHUB_HTTPS_URL = 'https://github.com/srstark01/portfolio'
-    DOCKERHUB_CRED   = 'Docker Hub'
+    DOCKERHUB_CRED   = 'dockerhub_pat'
   }
   stages {
     stage('Checkout (GitHub via HTTPS)') {
