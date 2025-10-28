@@ -1,6 +1,5 @@
 pipeline {
   agent any
-  options { skipDefaultCheckout(true) }   // disable auto checkout
   stages {
     stage('New "latest" image') {
       when {
