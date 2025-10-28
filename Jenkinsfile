@@ -1,9 +1,10 @@
 pipeline {
   agent any
   environment {
-    DOCKERHUB_CRED   = 'dockerhub_pat'
+    DOCKERHUB_CRED = 'dockerhub_pat'
   }
-  stage('Docker Hub: Login test') {
+  stages {
+    stage('Docker Hub: Login test') {
       steps {
         withCredentials([usernamePassword(credentialsId: env.DOCKERHUB_CRED, usernameVariable: 'DH_USER', passwordVariable: 'DH_PASS')]) {
           sh '''
