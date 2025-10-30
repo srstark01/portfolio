@@ -18,16 +18,45 @@ pipeline {
         echo "Triggered by tag: ${env.TAG}"
         sh '''
           set -euo pipefail
+
+          echo "=== Local (Jenkins agent) debug ==="
+          whoami || true
+          id || true
+          echo "HOME=$HOME"
+          echo "Listing $HOME/.ssh"
+          ls -alh "$HOME/.ssh" || true
+          echo "Stat on SSH key (if present)"
+          if [ -f "$SSH_KEY" ]; then
+            # Linux stat syntax
+            stat -c '%A %U:%G %a %n' "$SSH_KEY" 2>/dev/null || true
+            # macOS/BSD fallback (won't error if not available)
+            stat -f '%Sp %Su:%Sg %OLp %N' "$SSH_KEY" 2>/dev/null || true
+          else
+            echo "SSH key not found at $SSH_KEY"
+          fi
+
+          echo "Testing readability of key"
+          if [ ! -r "$SSH_KEY" ]; then
+            echo "ERROR: Jenkins user cannot read $SSH_KEY"
+            exit 1
+          fi
+
           for HOST in ${HOSTS}; do
             echo "=== Deploying to $HOST ==="
-            ssh -i "${SSH_KEY}" ${SSH_OPTS} opc@"$HOST" bash -lc "
+            ssh -i "${SSH_KEY}" ${SSH_OPTS} ${SSH_USER}@"$HOST" bash -lc "
               set -euo pipefail
+              whoami || true
+              id || true
+              echo 'Docker version:'; docker --version || true
+              echo 'Pulling image...'
               docker pull ${IMAGE}:latest
+              echo 'Stopping/removing old container (if any)...'
               docker stop ${CONTAINER} 2>/dev/null || true
               docker rm   ${CONTAINER} 2>/dev/null || true
               docker image prune -f
+              echo 'Starting new container...'
               docker run -d --name ${CONTAINER} -p ${PORT_MAP} ${IMAGE}:latest
-              # verify running (exact name + running status + image tag)
+              echo 'Verifying container...'
               docker ps --filter name=^/${CONTAINER}$ --filter status=running --format '{{.Image}} {{.Names}}' | grep -E '^${IMAGE}:latest ${CONTAINER}$'
             "
             echo "=== Success on $HOST ==="
