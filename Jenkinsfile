@@ -1,66 +1,55 @@
 pipeline {
   agent any
 
-  options {
-    timestamps()
-  }
-
   environment {
-    IMAGE      = 'srstark01/portfolio'    // docker image
-    CONTAINER  = 'portfolio'              // container name
-    PORT_MAP   = '0.0.0.0:8001:8001'      // host:container (IPv4-only bind)
-    SSH_OPTS   = "-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
-    HOSTS      = "app-001 app-002"
-    // TAG should be provided by your trigger/webhook
+    IMAGE       = 'srstark01/portfolio'
+    CONTAINER   = 'portfolio'
+    PORT_MAP    = '0.0.0.0:8001:8001'
+    SSH_OPTS    = "-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
+
+    APP_001_IP  = '10.10.3.10'
+    APP_002_IP  = '10.10.3.11'
+
+    // 👇 Define as a flat string that you’ll parse later
+    TARGETS     = 'app-001=${APP_001_IP},app-002=${APP_002_IP}'
   }
 
   stages {
-    stage('New "latest" image') {
+    stage('Deploy Latest Image') {
       when { expression { env.TAG?.trim() == 'latest' } }
       steps {
         echo "Triggered by tag: ${env.TAG}"
 
-        // Bind the Jenkins credential to $SSH_KEY (file path) and $SSH_USER (username)
         withCredentials([
           sshUserPrivateKey(credentialsId: 'git-ssh-key',
                             keyFileVariable: 'SSH_KEY',
                             usernameVariable: 'SSH_USER')
         ]) {
-          sh '''
-            set -euo pipefail
-            for HOST in ${HOSTS}; do
-              echo "=== Deploying to $HOST as ${SSH_USER} ==="
-              ssh -i "${SSH_KEY}" ${SSH_OPTS} "${SSH_USER}@${HOST}" bash -lc "
-                set -euo pipefail
-                whoami || true
-                id || true
-                echo 'Docker version:'; docker --version || true
-                echo 'Pulling image...'
-                docker pull ${IMAGE}:latest
-                echo 'Stopping/removing old container (if any)...'
-                docker stop ${CONTAINER} 2>/dev/null || true
-                docker rm   ${CONTAINER} 2>/dev/null || true
-                docker image prune -f
-                echo 'Starting new container...'
-                docker run -d --name ${CONTAINER} -p ${PORT_MAP} ${IMAGE}:latest
-                echo 'Verifying container...'
-                docker ps \
-                  --filter name=^/${CONTAINER}$ \
-                  --filter status=running \
-                  --format '{{.Image}} {{.Names}}' | grep -E '^${IMAGE}:latest ${CONTAINER}$'
-              "
-              echo "=== Success on $HOST ==="
-            done
-          '''
-        }
-      }
-    }
+          script {
+            // Parse TARGETS string -> map
+            def targets = env.TARGETS.split(',').collectEntries { pair ->
+              def parts = pair.split('=', 2)
+              [(parts[0].trim()): parts[1].trim()]
+            }
 
-    stage('New "version" image') {
-      when { expression { env.TAG?.trim() != 'latest' } }
-      steps {
-        echo "Triggered by tag: ${env.TAG}"
-        // TODO: add versioned deploy logic
+            targets.each { name, ip ->
+              echo "=== Deploying to ${name} (${ip}) as ${SSH_USER} ==="
+              sh """
+                set -euo pipefail
+                ssh -i "${SSH_KEY}" ${SSH_OPTS} "${SSH_USER}@${ip}" bash -lc '
+                  set -euo pipefail
+                  docker pull ${IMAGE}:latest
+                  docker stop ${CONTAINER} 2>/dev/null || true
+                  docker rm   ${CONTAINER} 2>/dev/null || true
+                  docker image prune -f
+                  docker run -d --name ${CONTAINER} -p ${PORT_MAP} ${IMAGE}:latest
+                  docker ps --filter name=^/${CONTAINER}\$ --filter status=running
+                '
+              """
+              echo "=== ✅ Success on ${name} (${ip}) ==="
+            }
+          }
+        }
       }
     }
   }
